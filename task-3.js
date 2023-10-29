@@ -1,25 +1,22 @@
 const taskThree = document.getElementById("taskThree");
 let resultThird = "";
 
-function getElementWidth(content, padding, border) {
-  content = Number.parseFloat(content);
-  padding = Number.parseFloat(padding);
-  border = Number.parseFloat(border);
-
-  if (Number.isNaN(content) || Number.isNaN(padding) || Number.isNaN(border)) {
-    return "Invalid input. Please provide valid numeric values.";
-  }
-
-  const elementWidth = content + padding * 2 + border * 2;
-  // return elementWidth;
-  resultThird += `${elementWidth}</br>`;
+function checkForSpam(message) {
+  if (typeof message === "string")
+    resultThird +=
+      message.toLowerCase().includes("spam") ||
+      message.toLowerCase().includes("sale")
+        ? true + "</br>"
+        : false + "</br>";
+  else return console.error("argument must be a string");
 }
 
-// console.log(getElementWidth("50px", "8px", "4px")); // 74
-// console.log(getElementWidth("60px", "12px", "8.5px")); // 101
-// console.log(getElementWidth("200px", "0px", "0px")); // 200
+checkForSpam("Latest technology news"); // false
+checkForSpam("JavaScript weekly newsletter"); // false
+checkForSpam("Get best sale offers now!"); // true
+checkForSpam("Amazing SalE, only tonight!"); // true
+checkForSpam("Trust me, this is not a spam message"); // true
+checkForSpam("Get rid of sPaM emails. Our book in on sale!"); // true
+checkForSpam("[SPAM] How to earn fast money?"); // true
 
-getElementWidth("50px", "8px", "4px");
-getElementWidth("60px", "12px", "8.5px");
-getElementWidth("200px", "0px", "0px");
 taskThree.innerHTML = resultThird;

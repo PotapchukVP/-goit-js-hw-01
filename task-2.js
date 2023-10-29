@@ -1,26 +1,20 @@
 const taskTwo = document.getElementById("taskTwo");
 let resultTwo = "";
 
-function getShippingMessage(country, price, deliveryFee) {
-  if (
-    typeof country !== "string" &&
-    price !== "number" &&
-    deliveryFee !== "number"
-  ) {
-    return console.error("Invalid parameters in function getShippingMessage");
-  }
-
-  let totalPrice = price + deliveryFee;
-  // return `Shipping to ${country} will cost ${totalPrice} credits`;
-  resultTwo += `Shipping to ${country} will cost ${totalPrice} credits</br>`;
+function formatMessage(message, maxLength) {
+  if (typeof message === "string" && typeof maxLength === "number") {
+    if (message.length <= maxLength) {
+      resultTwo += message + "</br>";
+    } else resultTwo += message.slice(0, maxLength) + "..." + "<br>";
+  } else
+    return console.error(`Wrong arguments in function formatMessage() </br>`);
 }
 
-// console.log(getShippingMessage("Australia", 120, 50)); // "Shipping to Australia will cost 170 credits"
-// console.log(getShippingMessage("Germany", 80, 20)); // "Shipping to Germany will cost 100 credits"
-// console.log(getShippingMessage("Sweden", 100, 20)); // "Shipping to Sweden will cost 120 credits"
-
-getShippingMessage("Australia", 120, 50);
-getShippingMessage("Germany", 80, 20);
-getShippingMessage("Sweden", 100, 20);
+formatMessage("Curabitur ligula sapien", 16); // "Curabitur ligula..."
+formatMessage("Curabitur ligula sapien", 23); // "Curabitur ligula sapien"
+formatMessage("Vestibulum facilisis purus nec", 20); // "Vestibulum facilisis..."
+formatMessage("Vestibulum facilisis purus nec", 30); // "Vestibulum facilisis purus nec"
+formatMessage("Nunc sed turpis a felis in nunc fringilla", 15); // "Nunc sed turpis..."
+formatMessage("Nunc sed turpis a felis in nunc fringilla", 41); // "Nunc sed turpis a felis in nunc fringilla"
 
 taskTwo.innerHTML = resultTwo;
