@@ -1,25 +1,15 @@
 const taskOne = document.getElementById("taskOne");
 let resultFirstTask = "";
 
-function makeTransaction(quantity, pricePerDroid, customerCredits) {
-  const totalPrice = quantity * pricePerDroid;
-
-  if (
-    typeof quantity === "number" &&
-    typeof pricePerDroid === "number" &&
-    typeof customerCredits === "number"
-  ) {
-    if (customerCredits < totalPrice)
-      resultFirstTask += `Insufficient funds!</br>`;
-    else
-      resultFirstTask += `You ordered ${quantity} droids worth ${totalPrice} credits!</br>`;
-  } else
-    resultFirstTask += `Wrong format data in arguments of makeTransaction() function </br>`;
+function slugify(title) {
+  if (title == undefined && title == null)
+    return console.error(`parameter 'title' is invalid`);
+  return (resultFirstTask +=
+    title.toLowerCase().split(" ").join("-") + `<br />`);
 }
-makeTransaction(5, 3000, 23000);
-makeTransaction(3, 1000, 15000); // "You ordered 3 droids worth 3000 credits!"
-makeTransaction(10, 5000, 8000); // "Insufficient funds!"
-makeTransaction(8, 2000, 10000); // "Insufficient funds!"
-makeTransaction(10, 500, 5000);
+slugify("Arrays for begginers"); // "arrays-for-begginers"
+slugify("English for developer"); // "english-for-developer"
+slugify("Ten secrets of JavaScript"); // "ten-secrets-of-javascript"
+slugify("How to become a JUNIOR developer in TWO WEEKS"); // "how-to-become-a-junior-developer-in-two-weeks"
 
 taskOne.innerHTML = resultFirstTask;

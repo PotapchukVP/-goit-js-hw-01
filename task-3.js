@@ -1,22 +1,21 @@
 const taskThree = document.getElementById("taskThree");
-let resultThird = "";
+let resultThird = [];
 
-function checkForSpam(message) {
-  if (typeof message === "string")
-    resultThird +=
-      message.toLowerCase().includes("spam") ||
-      message.toLowerCase().includes("sale")
-        ? true + "</br>"
-        : false + "</br>";
-  else return console.error("argument must be a string");
+function filterArray(numbers, value) {
+  let resultArray = [];
+  if (Array.isArray(numbers) && typeof value === "number") {
+    for (const number of numbers) if (number > value) resultArray.push(number);
+    resultThird += resultArray + `</br>`;
+    return resultArray;
+  }
+
+  return console.error("parameters must be a number");
 }
 
-checkForSpam("Latest technology news"); // false
-checkForSpam("JavaScript weekly newsletter"); // false
-checkForSpam("Get best sale offers now!"); // true
-checkForSpam("Amazing SalE, only tonight!"); // true
-checkForSpam("Trust me, this is not a spam message"); // true
-checkForSpam("Get rid of sPaM emails. Our book in on sale!"); // true
-checkForSpam("[SPAM] How to earn fast money?"); // true
+console.log(filterArray([1, 2, 3, 4, 5], 3)); // [4, 5]
+console.log(filterArray([1, 2, 3, 4, 5], 4)); // [5]
+console.log(filterArray([1, 2, 3, 4, 5], 5)); // []
+console.log(filterArray([12, 24, 8, 41, 76], 38)); // [41, 76]
+console.log(filterArray([12, 24, 8, 41, 76], 20)); // [24, 41, 76]
 
 taskThree.innerHTML = resultThird;
