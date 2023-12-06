@@ -1,47 +1,50 @@
-const all_users = [
-  {
-    name: "Moore Hensley",
-    gender: "male",
-    balance: 2811,
-  },
-  {
-    name: "Sharlene Bush",
-    gender: "female",
-    balance: 3821,
-  },
-  {
-    name: "Ross Vazquez",
-    gender: "male",
-    balance: 3793,
-  },
-  {
-    name: "Elma Head",
-    gender: "female",
-    balance: 2278,
-  },
-  {
-    name: "Carey Barr",
-    gender: "male",
-    balance: 3951,
-  },
-  {
-    name: "Blackburn Dotson",
-    gender: "male",
-    balance: 1498,
-  },
-  {
-    name: "Sheree Anthony",
-    gender: "female",
-    balance: 2764,
-  },
-];
+class User {
+  userEmail; // Rename to avoid naming conflict
 
-const getTotalBalanceByGender = (users, gender) => {
-  return users
-    .filter((user) => user.gender === gender)
-    .reduce((totalBalance, user) => totalBalance + user.balance, 0);
-};
+  constructor(email) {
+    this.userEmail = email;
+  }
 
-console.log(getTotalBalanceByGender(all_users, "male")); // 12053
+  get email() {
+    return this.userEmail;
+  }
 
-console.log(getTotalBalanceByGender(all_users, "female")); // 8863
+  set email(newEmail) {
+    this.userEmail = newEmail;
+  }
+}
+
+class Admin extends User {
+  static blacklistedEmails = [];
+  static role = {
+    BASIC: "basic",
+    SUPERUSER: "superuser",
+  };
+
+  constructor({ email, access }) {
+    super(email);
+    this.access = access;
+  }
+
+  static blacklist(email) {
+    Admin.blacklistedEmails.push(email); // Corrected typo here
+  }
+
+  static isBlacklisted(email) {
+    return Admin.blacklistedEmails.includes(email);
+  }
+}
+
+// Testing the corrected code
+const mango = new Admin({
+  email: "mango@mail.com",
+  access: Admin.role.SUPERUSER,
+});
+
+console.log(mango.email); // Output: "mango@mail.com"
+console.log(mango.access); // Output: "superuser"
+
+Admin.blacklist("poly@mail.com");
+console.log(Admin.blacklistedEmails); // Output: ["poly@mail.com"]
+console.log(Admin.isBlacklisted("mango@mail.com")); // Output: false
+console.log(Admin.isBlacklisted("poly@mail.com")); // Output: true
