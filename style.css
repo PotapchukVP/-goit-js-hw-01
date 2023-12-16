@@ -1,0 +1,16 @@
+.gallery {
+  display: flex-box;
+}
+
+.color {
+  color: red;
+}
+
+.box-style {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  background-color: blue;
+  border-radius: 10px;
+}
