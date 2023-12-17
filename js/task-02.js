@@ -1,5 +1,4 @@
 const gallery = document.querySelector(".gallery");
-
 const images = [
   {
     url: "https://images.pexels.com/photos/140134/pexels-photo-140134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
@@ -29,10 +28,10 @@ const images = [
 
 if (!gallery || images.length === 0)
   console.error("No gallery element or images were found for this gallery.");
-else
+else {
+  let markup = "";
   images.forEach((image) => {
-    gallery.insertAdjacentHTML(
-      "beforeend",
-      `<img src="${image.url}" alt="${image.alt}" width="720" height="480"/>`
-    );
+    markup += `<li> <img src="${image.url}" alt="${image.alt}" width="720" height="480"/> </li>`;
   });
+  gallery.innerHTML = markup;
+}

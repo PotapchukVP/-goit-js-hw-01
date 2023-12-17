@@ -10,7 +10,6 @@ createButton.addEventListener("click", (event) => {
     controls.querySelector("input[type= number]").value,
     10
   );
-  clearBoxes();
   createBoxes(userValue);
 });
 
@@ -34,27 +33,18 @@ function createBoxes(amount) {
     return console.error("Amount must be from 1 to 100");
 
   let size = { width: 30, height: 30 };
+  let markup = "";
   for (let i = 0; i < amount; i++) {
-    const newBox = document.createElement("div");
-    newBox.className = "box-style";
-    newBox.style.backgroundColor = getRandomHexColor();
-    newBox.style.width = size.width + "px";
-    newBox.style.height = size.height + "px";
-    boxes.appendChild(newBox);
-
+    markup += `<div class="box-style" style="background-color: ${getRandomHexColor()}; width: ${
+      size.width
+    }px; height: ${size.height}px;"></div>`;
     size.width += 10;
     size.height += 10;
   }
+  boxes.innerHTML = markup;
   number.value = "";
 }
 
-function clearBoxes() {
-  while (boxes.firstChild) {
-    boxes.removeChild(boxes.firstChild);
-  }
-}
-
 function destroyBoxes() {
-  clearBoxes();
   boxes.innerHTML = "";
 }
