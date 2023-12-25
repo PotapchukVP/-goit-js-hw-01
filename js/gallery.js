@@ -90,16 +90,24 @@ gallery.addEventListener("click", (event) => {
   event.preventDefault();
   const source = event.target.dataset.source;
 
-  if (!source) console.error("No source image found");
-  instance = basicLightbox.create(`<img src="${source}">`);
-  instance.show();
+  if (event.target.nodeName !== "IMG")
+    return console.error("No source image found");
 
-  if (instance.visible()) document.addEventListener("keydown", onKeyDown);
+  if (!instance) {
+    instance = basicLightbox.create(`<img src="${source}">`, {
+      onShow: (instance) => {
+        document.addEventListener("keydown", onKeyDown);
+      },
+      onClose: (instance) => {
+        document.removeEventListener("keydown", onKeyDown);
+      },
+    });
+  }
+  instance.show();
 });
 
 const onKeyDown = (event) => {
-  if (event.key === "Escape") {
+  if (event.key === "Escape" && instance && instance.visible()) {
     instance.close();
-    document.removeEventListener("keydown", onKeyDown);
   }
 };
